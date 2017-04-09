@@ -3,6 +3,7 @@ package pl.sparkidea.bridge;
 import pl.sparkidea.bridge.controll.Dispatcher;
 import pl.sparkidea.bridge.controll.sides.Side;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +19,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("app.fxml"));
+        URL mainFxml = getClass().getResource("app.fxml");
+        Parent root = FXMLLoader.load(mainFxml);
         primaryStage.setTitle("Bridge");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
