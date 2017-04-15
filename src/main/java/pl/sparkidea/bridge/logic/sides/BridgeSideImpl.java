@@ -1,7 +1,6 @@
-package pl.sparkidea.bridge.controll.sides;
+package pl.sparkidea.bridge.logic.sides;
 
-import pl.sparkidea.bridge.controll.events.EventHandler;
-import pl.sparkidea.bridge.controll.events.UpdateMessage;
+import pl.sparkidea.bridge.logic.events.EventHandler;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,7 +13,7 @@ import java.util.logging.Logger;
 public class BridgeSideImpl extends Thread implements BridgeSide {
     private Logger LOG = Logger.getLogger(BridgeSideImpl.class.getName());
 
-    private EventHandler eventHandler;
+    private EventHandler<Integer> eventHandler;
     private final Side sideName;
     private AtomicInteger carsWaiting;
     private Boolean hasGreenLight;
@@ -25,7 +24,7 @@ public class BridgeSideImpl extends Thread implements BridgeSide {
         this.eventHandler = handler;
     }
 
-    public BridgeSideImpl(Side bridgeSide, int carsWaiting, EventHandler handler) {
+    public BridgeSideImpl(Side bridgeSide, int carsWaiting, EventHandler<Integer> handler) {
         this(bridgeSide, handler);
         this.carsWaiting = new AtomicInteger();
         this.carsWaiting.addAndGet(carsWaiting);
@@ -33,7 +32,9 @@ public class BridgeSideImpl extends Thread implements BridgeSide {
 
     @Override
     public void addCarsWaiting(int additionalCars) {
-        this.carsWaiting.addAndGet(additionalCars);
+        final int carsAmount = this.carsWaiting.addAndGet(additionalCars);
+        Optional.ofNullable(eventHandler)
+                .ifPresent(handler -> handler.onUpdateCount(sideName, carsAmount));
     }
 
     @Override
@@ -54,17 +55,23 @@ public class BridgeSideImpl extends Thread implements BridgeSide {
     }
 
     @Override
+    public Integer getCarsWaiting() {
+        return carsWaiting.get();
+    }
+
+    @Override
     public void run() {
         super.run();
 
-        LOG.info(sideName.name() + " setup with " + carsWaiting);
-        LOG.info(sideName.name() + " green light by init: " + getHasGreenLight());
+        LOG.fine(sideName.name() + " setup with " + carsWaiting);
+        LOG.fine(sideName.name() + " green light by init: " + getHasGreenLight());
 
         while (true) {
             if (hasGreenLight != null) {
-                if (carsWaiting.get() != 0 && hasGreenLight) {
+                if (carsWaiting.get() > 0 && hasGreenLight) {
                     carsWaiting.decrementAndGet();
-                    Optional.ofNullable(eventHandler).ifPresent(handler -> handler.onUpdateCount(new UpdateMessage(carsWaiting.get(), sideName)));
+                    Optional.ofNullable(eventHandler)
+                            .ifPresent(handler -> handler.onUpdateCount(sideName, carsWaiting.get()));
                 }
             }
             try {
