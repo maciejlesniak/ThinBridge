@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.sparkidea.bridge.controller.Controller">
+   <children>
+      <Separator layoutX="294.0" layoutY="77.0" orientation="VERTICAL" prefHeight="124.0" prefWidth="6.0" />
+      <Button id="idStart" fx:id="btnStartStop" contentDisplay="CENTER" layoutX="273.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#onStartStopClick" text="Start" />
+      <Label layoutX="57.0" layoutY="79.0" text="West side status">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Group layoutX="68.0" layoutY="125.0">
+         <children>
+            <Circle fx:id="lightWest" fill="DODGERBLUE" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="labelCarsAmountWest" layoutX="17.0" layoutY="-7.0" text="Cars amount:" />
+         </children>
+      </Group>
+      <Button id="idStart" fx:id="btnAddTenWest" contentDisplay="CENTER" layoutX="55.0" layoutY="154.0" mnemonicParsing="false" onMouseClicked="#onAddTenWestClick" text="Add 10 cars" />
+      <Label layoutX="351.0" layoutY="79.0" text="East side status">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Group layoutX="363.0" layoutY="125.0">
+         <children>
+            <Circle fx:id="lightEast" fill="DODGERBLUE" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="labelCarsAmountEast" layoutX="20.0" layoutY="-8.0" text="Cars amount:" />
+         </children>
+      </Group>
+      <Button id="idStart" fx:id="btnAddTenEast" contentDisplay="CENTER" layoutX="352.0" layoutY="154.0" mnemonicParsing="false" onMouseClicked="#onAddTenEastClick" text="Add 10 cars" />
+      <ImageView fx:id="imgArrowWest" fitHeight="47.0" fitWidth="35.0" layoutX="189.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@arrow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgCar" fitHeight="81.0" fitWidth="527.0" layoutX="225.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@car.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgArrowEast" fitHeight="47.0" fitWidth="35.0" layoutX="362.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@arrow.png" />
+         </image>
+      </ImageView>
+      <Group layoutX="96.0" layoutY="330.0">
+         <children>
+            <Label layoutY="2.0" text="Add">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textCarsAmount" layoutX="43.0" prefHeight="27.0" prefWidth="61.0" />
+            <Label layoutX="111.0" layoutY="2.0" text="cars to">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="comboSide" layoutX="178.0" prefHeight="27.0" prefWidth="82.0" />
+            <Label layoutX="274.0" layoutY="2.0" text="side">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button id="idStart" fx:id="btnAddAmountNow" contentDisplay="CENTER" layoutX="324.0" mnemonicParsing="false" onMouseClicked="#onAddAmountNowClick" text="Add now" />
+         </children>
+      </Group>
+   </children>
+</Pane>
