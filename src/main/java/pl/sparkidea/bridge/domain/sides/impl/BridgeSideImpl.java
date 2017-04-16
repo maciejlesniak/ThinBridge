@@ -1,6 +1,8 @@
-package pl.sparkidea.bridge.logic.sides;
+package pl.sparkidea.bridge.domain.sides.impl;
 
-import pl.sparkidea.bridge.logic.events.EventHandler;
+import pl.sparkidea.bridge.domain.sides.BridgeSide;
+import pl.sparkidea.bridge.domain.sides.Side;
+import pl.sparkidea.bridge.services.events.EventHandler;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,15 +21,11 @@ public class BridgeSideImpl extends Thread implements BridgeSide {
     private Boolean hasGreenLight;
     private final long SLEEP_TIME = 500L;
 
-    private BridgeSideImpl(Side bridgeSide, EventHandler handler) {
-        this.sideName = bridgeSide;
-        this.eventHandler = handler;
-    }
-
     public BridgeSideImpl(Side bridgeSide, int carsWaiting, EventHandler<Integer> handler) {
-        this(bridgeSide, handler);
+        this.sideName = bridgeSide;
         this.carsWaiting = new AtomicInteger();
         this.carsWaiting.addAndGet(carsWaiting);
+        this.eventHandler = handler;
     }
 
     @Override
@@ -52,11 +50,6 @@ public class BridgeSideImpl extends Thread implements BridgeSide {
     @Override
     public Boolean getHasGreenLight() {
         return hasGreenLight;
-    }
-
-    @Override
-    public Integer getCarsWaiting() {
-        return carsWaiting.get();
     }
 
     @Override

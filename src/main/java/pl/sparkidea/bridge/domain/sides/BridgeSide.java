@@ -1,4 +1,4 @@
-package pl.sparkidea.bridge.logic.sides;
+package pl.sparkidea.bridge.domain.sides;
 
 /**
  * @author Maciej Lesniak / Spark Media
@@ -11,12 +11,6 @@ public interface BridgeSide extends Runnable {
      * @param carsWaiting amount
      */
     void addCarsWaiting(int carsWaiting);
-
-    /**
-     * Gets amount of cars waiting in specified moment
-     * @return amount of cars
-     */
-    Integer getCarsWaiting();
 
     /**
      * Sets green light

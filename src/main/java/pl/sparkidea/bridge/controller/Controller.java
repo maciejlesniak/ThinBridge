@@ -1,19 +1,17 @@
 package pl.sparkidea.bridge.controller;
 
-import pl.sparkidea.bridge.logic.Dispatcher;
-import pl.sparkidea.bridge.logic.events.EventHandler;
-import pl.sparkidea.bridge.logic.sides.Side;
+import pl.sparkidea.bridge.domain.sides.Side;
+import pl.sparkidea.bridge.services.Dispatcher;
+import pl.sparkidea.bridge.services.events.EventHandler;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -26,10 +24,7 @@ public class Controller implements Initializable {
     private final Integer INITIAL_CARS_AMOUNT = 10;
 
     private Dispatcher dispatcher;
-    private boolean isButtonStart;
 
-    @FXML
-    private Button btnStartStop;
     @FXML
     private Circle lightWest;
     @FXML
@@ -51,8 +46,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        isButtonStart = true;
-
         // activate dispatcher
         Map<Side, Integer> initialCarNumbers = new HashMap<>();
         initialCarNumbers.put(Side.WEST, INITIAL_CARS_AMOUNT);
@@ -68,18 +61,15 @@ public class Controller implements Initializable {
         comboSide.getItems().addAll(Side.EAST.name(), Side.WEST.name());
 
         // side init
-        switchSidesTo(Side.NONE);
+        switchSidesTo(Side.randomSide());
     }
 
-    public void onStartStopClick(MouseEvent mouseEvent) {
-        if (isButtonStart) {
-            btnStartStop.setText("Stop");
-            switchSidesTo(Side.EAST);
+    public void onSwitchClick(MouseEvent mouseEvent) {
+        if (dispatcher.getActiveSite().equals(Side.EAST)) {
+            switchSidesTo(Side.WEST);
         } else {
-            btnStartStop.setText("Start");
-            dispatcher.stop();
+            switchSidesTo(Side.EAST);
         }
-        isButtonStart = !isButtonStart;
     }
 
     public void onAddTenWestClick(MouseEvent mouseEvent) {
@@ -115,7 +105,7 @@ public class Controller implements Initializable {
             lightEast.setFill(Color.GREEN);
 
             dispatcher.setActiveSite(Side.EAST);
-        } else if(activeSide.equals(Side.WEST)) {
+        } else if (activeSide.equals(Side.WEST)) {
             imgCar.setVisible(true);
             imgArrowEast.setVisible(true);
             imgArrowWest.setVisible(true);

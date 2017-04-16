@@ -1,6 +1,6 @@
-package pl.sparkidea.bridge.logic.events;
+package pl.sparkidea.bridge.services.events;
 
-import pl.sparkidea.bridge.logic.sides.Side;
+import pl.sparkidea.bridge.domain.sides.Side;
 
 /**
  * @author Maciej Lesniak / Spark Media
