@@ -1,5 +1,4 @@
-![WSPA Logo]
-(http://old.wspa.pl/img/wspa-logo-wh.png)
+![WSPA Logo](http://old.wspa.pl/img/wspa-logo-wh.png)
 
 # Thin Bridge
 
