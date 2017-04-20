@@ -1,0 +1,6 @@
+pl.sparkidea.bridge
+pl.sparkidea.bridge.controller
+pl.sparkidea.bridge.domain.sides
+pl.sparkidea.bridge.domain.sides.impl
+pl.sparkidea.bridge.services
+pl.sparkidea.bridge.services.events
